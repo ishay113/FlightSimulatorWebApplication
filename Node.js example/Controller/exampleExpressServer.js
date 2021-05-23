@@ -19,7 +19,7 @@ app.post("/detect", (req, res) => {
     if(req.files) {
         let model_type = req.body.model_type
         let train_file = req.files.train_file
-        let test_file = req.files.test_file
+        let test_file = req.files.predict_file
 
         let anomaly_detector = model.train(model_type, train_file.data.toString())
 
