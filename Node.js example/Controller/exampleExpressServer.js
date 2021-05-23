@@ -1,6 +1,6 @@
 const express = require('express')
 const fileUpload = require('express-fileupload')
-const model = require('../Model/SearchInFile')
+const model = require('../Model/AnomalyDetector')
 
 const app = express()
 app.use(express.urlencoded({
@@ -17,9 +17,14 @@ app.post("/detect", (req, res) => {
     res.write('searching for ' + ',' +':\n')
     let key = ','
     if(req.files) {
-        let file = req.files.train_file
-        let result = model.searchText(key, file.data.toString())
-        res.write(result)
+        let model_type = req.body.model_type
+        let train_file = req.files.train_file
+        let test_file = req.files.test_file
+
+        let anomaly_detector = model.train(model_type, train_file.data.toString())
+
+        let list_of_anomalies = model.predict(anomaly_detector, test_file.data.toString())
+        return list_of_anomalies
     }
     res.end()
 })
