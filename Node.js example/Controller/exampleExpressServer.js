@@ -24,7 +24,7 @@ app.post("/detect", (req, res) => {
         let anomaly_detector = model.train(model_type, train_file.data.toString())
 
         let list_of_anomalies = model.predict(anomaly_detector, test_file.data.toString())
-        return list_of_anomalies
+        res.write(list_of_anomalies)
     }
     res.end()
 })
