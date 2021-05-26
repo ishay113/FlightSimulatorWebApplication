@@ -2,7 +2,11 @@ const express = require('express')
 const fileUpload = require('express-fileupload')
 const model = require('../Model/AnomalyDetector')
 const cors = require('cors')
+const fs = require('fs');
+
+
 const app = express()
+
 app.use(express.urlencoded({
     extended: true
 }))
@@ -14,7 +18,7 @@ app.get("/", (req, res) => {
     res.sendFile("index.html")
 })
 
-function detect(req){
+function detect(req) {
     let list_of_anomalies = {
         anomalies: [
             {
@@ -30,17 +34,37 @@ function detect(req){
         ]
     }
     if (req.files) {
-        let model_type = req.body.model_type
+        let model_type;
+        if (req.body.model_type === "regression") {
+            model_type = 0;
+        }
+        else {
+            model_type = 1;
+        }
+
         let train_file = req.files.train_file
         let test_file = req.files.predict_file
 
-        let anomaly_detector = model.train(model_type, train_file.data.toString())
 
-        list_of_anomalies = {anomalies: model.predict(anomaly_detector, test_file.data.toString())}
+        // save train and test files to specific location
+        fs.writeFileSync("../Data/train_file.csv", train_file.data.toString());
+        fs.writeFileSync("../Data/test_file.csv", test_file.data.toString());
+
+        let anomaly_detector = model.train(model_type)
+
+        list_of_anomalies = {anomalies: model.predict(anomaly_detector)}
+
+        fs.unlink('../Data/train_file.csv', function (err) {
+            if (err) throw err;
+        });
+        fs.unlink('../Data/test_file.csv', function (err) {
+            if (err) throw err;
+        });
     }
 
     return list_of_anomalies
 }
+
 app.post("/detect", (req, res) => {
     let list_of_anomalies = detect(req)
     res.json(list_of_anomalies)
@@ -52,13 +76,13 @@ app.post("/detectHTML", (req, res) => {
     let list_of_anomalies = detect(req)
 
     // parse json to strings
-    list_of_anomalies.anomalies.forEach(function(anomaly){
+    list_of_anomalies.anomalies.forEach(function (anomaly) {
         // res.write(`Anomaly found in line ${anomaly.timestamp}! The relevant columns are ${anomaly.columns} and the value is ${anomaly.value}\n`);
-        res.write('-'.repeat(24)+'\n');
-        res.write(`${anomaly.timestamp}`+' '.repeat(6-(anomaly.timestamp.length)) + '|' +
-        `${anomaly.columns}` + ' '.repeat(8 - anomaly.columns.length) + '|' + `${anomaly.value}` + '\n');
+        res.write('-'.repeat(24) + '\n');
+        res.write(`${anomaly.timestamp}` + ' '.repeat(6 - (anomaly.timestamp.length)) + '|' +
+            `${anomaly.columns}` + ' '.repeat(8 - anomaly.columns.length) + '|' + `${anomaly.value}` + '\n');
     })
-    res.write('-'.repeat(24)+'\n');
+    res.write('-'.repeat(24) + '\n');
     res.end()
 })
 
