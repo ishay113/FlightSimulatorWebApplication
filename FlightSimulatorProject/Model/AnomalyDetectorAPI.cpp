@@ -56,22 +56,30 @@
             anomalies_vector = ad.detect(test);
         }
 
-        string jsonString = "{";
+        // CREATE JSON LOGIC
+        string stringJson = "{";
         string key, val;
-        int vecSize = anomalies_vector.size();
-        for (int i = 0; i < vecSize; i++){
+        int anomaliesVecSize = anomalies_vector.size();
+
+        // iterate over the anomalies vector and populate the string json
+        for (int i = 0; i < anomaliesVecSize; i++){
             key = anomalies_vector[i].description;
             val = to_string(anomalies_vector[i].timeStep);
-            printf("key: %s, val: %s\n", key.c_str(), val.c_str());
-            if (i != vecSize - 1)
-                jsonString += "\"" +key + "\"" + ": " + "\"" + val + "\"" + ",";
-            else
-                jsonString += "\"" +key + "\"" + ": " + "\"" + val + "\"";
+
+            // populate json string
+            stringJson += "\"" +key + "\"" + ": " + "\"" + val + "\"";
+            if (i != anomaliesVecSize - 1)
+                stringJson += ",";
+
         }
-        jsonString += "}";
+
+        // end of json file
+        stringJson += "}";
+
+        // create the json
         ofstream jsonFile;
         jsonFile.open("../Model/res/anomaly-report.json");
-        jsonFile << jsonString;
+        jsonFile << stringJson;
         jsonFile.close();
     }
 
