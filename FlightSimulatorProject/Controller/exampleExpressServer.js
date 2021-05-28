@@ -37,8 +37,7 @@ function detect(req) {
         let model_type;
         if (req.body.model_type === "regression") {
             model_type = 0;
-        }
-        else {
+        } else {
             model_type = 1;
         }
 
@@ -50,9 +49,12 @@ function detect(req) {
         fs.writeFileSync("../Data/train_file.csv", train_file.data.toString());
         fs.writeFileSync("../Data/test_file.csv", test_file.data.toString());
 
-        let anomaly_detector = model.train(model_type)
-
-        list_of_anomalies = {anomalies: model.predict(anomaly_detector)}
+        model.trainAndPredict(model_type)
+        let list_of_anomalies;
+        fs.readFile('res/anomaly-report.json', (err, data) => {
+            if (err) throw err;
+            list_of_anomalies = JSON.parse(data);
+        });
 
         fs.unlink('../Data/train_file.csv', function (err) {
             if (err) throw err;

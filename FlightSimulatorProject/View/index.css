@@ -1,6 +1,57 @@
-@import "bourbon";
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300);
 
 body {
     font-family: 'Lato', sans-serif;
+    background-image: url('flightSim.jpg');
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+
+}
+
+.col-1 {width: 50%; border: black}
+.col-2 {width: 50%;}
+
+input.submit-button {
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:1em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Lato',sans-serif;
+    font-weight:"bold";
+    color: #000000;
+    background-color: #a3bac6;
+    text-align:center;
+    transition: all 0.2s;
+}
+input.submit-button:hover{
+    background-color:#4095c6;
+}
+@media all and (max-width:30em){
+    input.submit-button{
+        display:block;
+        margin:0.2em auto;
+        }
+}
+
+file-upload-wrapper {
+    border: 2px solid black;
+}
+div.background {
+    border: 2px solid black;
+}
+
+div.transbox {
+    background-color: #ffffff;
+    border: 1px solid black;
+    opacity: 0.6;
+    padding: 7px;
+}
+
+div.transbox p {
+    font-weight: bold;
+    color: #000000;
 }

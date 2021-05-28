@@ -1,46 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:opacity="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="index.css">
     <script src="index.js"></script>
-
 </head>
 <body>
 
-<h1 align="center">Welcome to the Flight Simulator!</h1>
 
-<form action="/detect" method="post" enctype="multipart/form-data" name="configurationForm" target="result">
-    <table>
-        <tr>
-            <td>Select model to use:</td>
-            <td>
-                <input type="radio" id="regression" name="model_type" value="regression">
-                <label for="regression">Regression Model</label><br>
-                <input type="radio" id="hybrid" name="model_type" value="hybrid">
-                <label for="hybrid">Hybrid Model</label><br>
-            </td>
+<h1 align="center">Anomaly Detection Server</h1>
 
-        </tr>
-        <tr>
-            <td>Upload file for training:</td>
-            <td>
-                <!--                <input type="file" name="train_file">-->
-                <div class="file-upload-wrapper" data-text="Select your file!">
-                    <input name="train_file" type="file" class="file-upload-field" value="">
-                </div>
+<form action="/detectHTML" method="post" enctype="multipart/form-data" name="configurationForm" target="result">
+    <div class="transbox" style="display: flex; justify-content: center;">
+        <label style="margin-right: 10px">
+            Select model:
+        </label>
 
-            </td>
-        </tr>
-        <tr>
-            <td>Upload file for prediction:</td>
-            <td><input type="file" name="predict_file"></td>
-        </tr>
-    </table>
-    <input type="submit" value="Detect!">
+        <select name="model_type">
+            <option value="regression" name="regression">Regression Model</option>
+            <option value="hybrid" name="hybrid">Hybrid Model</option>
+        </select>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        <div class="transbox" style="justify-content: center;">
+                            <label style="align-content: center">Upload file for training:</label>
+                            <input name="train_file" type="file" class="file-upload-field" value="">
+                        </div>
+                    </div> <!-- 25% -->
+                </td>
+                <td>
+                    <div>
+                        <div class="transbox" style="justify-content: center;">
+                            <label>Upload file for prediction:</label>
+                            <input name="predict_file" type="file" class="file-upload-field" value="">
+                        </div>
+                    </div> <!-- 75% --></td>
+            </tr>
+
+        </table>
+        <div style="display: flex; justify-content: center;">
+            <input type="submit" value="Detect!" class="submit-button">
+        </div>
+
+    </div>
+
+
+    <!--    <table class="styled-table">-->
+
+    <!--        <tr>-->
+    <!--        <tr>Select model to use:-->
+    <!--        <tr>-->
+
+    <!--            <td>-->
+    <!--                <p style="margin-left:2.5em;"></p>-->
+    <!--                <input type="radio" id="regression" name="model_type" value="regression">-->
+    <!--                <label for="regression">Regression Model</label><br>-->
+    <!--                <input type="radio" id="hybrid" name="model_type" value="hybrid">-->
+    <!--                <label for="hybrid">Hybrid Model</label><br>-->
+    <!--            </td>-->
+
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--            <td>Upload file for training:</td>-->
+    <!--            <p style="margin-left:2.5em;"></p>-->
+    <!--            <td>-->
+    <!--                &lt;!&ndash;                <input type="file" name="train_file">&ndash;&gt;-->
+
+
+    <!--            </td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--            <td>Upload file for prediction:</td>-->
+    <!--            <td><input type="file" name="predict_file"></td>-->
+    <!--        </tr>-->
+    <!--    </table>-->
+    <div style="display: flex; justify-content: center;">
+
+
+    </div>
 </form>
 <br>
-<iframe name="result" width="80%" height="500"></iframe>
+<div style="display: flex; justify-content: center;">
+    <ul id="ct"></ul>
+    <iframe allowtransparency="true" style="background: #B0E0E6;" name="result" width="80%" height="500"></iframe>
+</div>
 </body>
 </html>
