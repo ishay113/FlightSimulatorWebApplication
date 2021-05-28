@@ -19,20 +19,21 @@ app.get("/", (req, res) => {
 })
 
 function detect(req) {
-    let list_of_anomalies = {
-        anomalies: [
-            {
-                timestamp: "32",
-                columns: "A-C",
-                value: "4.5"
-            },
-            {
-                timestamp: "45",
-                columns: "A-C",
-                value: "4.8"
-            }
-        ]
-    }
+    let list_of_anomalies;
+    // let list_of_anomalies = {
+    //     anomalies: [
+    //         {
+    //             timestamp: "32",
+    //             columns: "A-C",
+    //             value: "4.5"
+    //         },
+    //         {
+    //             timestamp: "45",
+    //             columns: "A-C",
+    //             value: "4.8"
+    //         }
+    //     ]
+    // }
     if (req.files) {
         let model_type;
         if (req.body.model_type === "regression") {
@@ -46,22 +47,22 @@ function detect(req) {
 
 
         // save train and test files to specific location
-        fs.writeFileSync("../Data/train_file.csv", train_file.data.toString());
-        fs.writeFileSync("../Data/test_file.csv", test_file.data.toString());
+        fs.writeFileSync("Data/train_file.csv", train_file.data.toString());
+        fs.writeFileSync("Data/test_file.csv", test_file.data.toString());
 
-        model.trainAndPredict(model_type)
-        let list_of_anomalies;
-        fs.readFile('res/anomaly-report.json', (err, data) => {
+        // model.trainAndPredict(model_type);
+        list_of_anomalies = JSON.parse(fs.readFileSync('../Model/res/anomaly-report.json'));
+
+        fs.unlink('Data/train_file.csv', function (err) {
             if (err) throw err;
-            list_of_anomalies = JSON.parse(data);
+        });
+        fs.unlink('Data/test_file.csv', function (err) {
+            if (err) throw err;
         });
 
-        fs.unlink('../Data/train_file.csv', function (err) {
-            if (err) throw err;
-        });
-        fs.unlink('../Data/test_file.csv', function (err) {
-            if (err) throw err;
-        });
+        // fs.unlink('../Model/res/anomaly-report.json', function (err) {
+        //     if (err) throw err;
+        // });
     }
 
     return list_of_anomalies
@@ -75,16 +76,16 @@ app.post("/detect", (req, res) => {
 })
 
 app.post("/detectHTML", (req, res) => {
-    let list_of_anomalies = detect(req)
+    let list_of_anomalies = detect(req);
 
     // parse json to strings
     list_of_anomalies.anomalies.forEach(function (anomaly) {
-        // res.write(`Anomaly found in line ${anomaly.timestamp}! The relevant columns are ${anomaly.columns} and the value is ${anomaly.value}\n`);
-        res.write('-'.repeat(24) + '\n');
-        res.write(`${anomaly.timestamp}` + ' '.repeat(6 - (anomaly.timestamp.length)) + '|' +
-            `${anomaly.columns}` + ' '.repeat(8 - anomaly.columns.length) + '|' + `${anomaly.value}` + '\n');
+        res.write(`Anomaly found in line ${anomaly.timestamp}! The relevant columns are ${anomaly.columns} and the value is ${anomaly.value}\n`);
+        // res.write('-'.repeat(18) + '\n');
+        // res.write(`${anomaly.timestamp}` + ' '.repeat(6 - (anomaly.timestamp.length)) + '|' +
+        //     `${anomaly.columns}` + ' '.repeat(8 - anomaly.columns.length) + '|' + '\n');
     })
-    res.write('-'.repeat(24) + '\n');
+    // res.write('-'.repeat(18) + '\n');
     res.end()
 })
 
