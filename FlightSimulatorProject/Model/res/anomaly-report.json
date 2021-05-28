@@ -1,12 +1,1 @@
-{
-  "anomalies": [
-    {
-      "timestamp": "32",
-      "columns": "A-C"
-    },
-    {
-      "timestamp": "45",
-      "columns": "A-C"
-    }
-  ]
-}
+{ "anomalies": [ { "timestamp": "73", "columns": "A-B" },{ "timestamp": "74", "columns": "A-B" },{ "timestamp": "75", "columns": "A-B" },{ "timestamp": "76", "columns": "A-B" },{ "timestamp": "133", "columns": "C-D" },{ "timestamp": "134", "columns": "C-D" },{ "timestamp": "135", "columns": "C-D" }] }

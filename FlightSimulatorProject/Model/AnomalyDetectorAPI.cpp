@@ -38,9 +38,9 @@
 
         SimpleAnomalyDetector simple_anomaly_detector;
         HybridAnomalyDetector ad;
-        TimeSeries train("../Data/train_file.csv");
+        TimeSeries train("Data/train_file.csv");
 
-        TimeSeries test("../Data/test_file.csv");
+        TimeSeries test("Data/test_file.csv");
 
         vector<AnomalyReport> anomalies_vector;
 
@@ -57,24 +57,24 @@
         }
 
         // CREATE JSON LOGIC
-        string stringJson = "{";
+        string stringJson = "{ \"anomalies\": [ ";
         string key, val;
         int anomaliesVecSize = anomalies_vector.size();
 
         // iterate over the anomalies vector and populate the string json
-        for (int i = 0; i < anomaliesVecSize; i++){
+        for (int i = 0; i < anomaliesVecSize; i++) {
             key = anomalies_vector[i].description;
             val = to_string(anomalies_vector[i].timeStep);
 
             // populate json string
-            stringJson += "\"" +key + "\"" + ": " + "\"" + val + "\"";
+            stringJson += "{ \"timestamp\": \"" + val + "\", \"columns\": \"" + key + "\" }";
             if (i != anomaliesVecSize - 1)
                 stringJson += ",";
 
         }
 
         // end of json file
-        stringJson += "}";
+        stringJson += "] }";
 
         // create the json
         ofstream jsonFile;

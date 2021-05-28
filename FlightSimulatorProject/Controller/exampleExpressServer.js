@@ -50,7 +50,7 @@ function detect(req) {
         fs.writeFileSync("Data/train_file.csv", train_file.data.toString());
         fs.writeFileSync("Data/test_file.csv", test_file.data.toString());
 
-        // model.trainAndPredict(model_type);
+        model.trainAndPredict(model_type);
         list_of_anomalies = JSON.parse(fs.readFileSync('../Model/res/anomaly-report.json'));
 
         fs.unlink('Data/train_file.csv', function (err) {
