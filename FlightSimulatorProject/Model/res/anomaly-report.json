@@ -1,14 +1,12 @@
 {
-  anomalies: [
+  "anomalies": [
     {
-      timestamp: "32",
-      columns: "A-C",
-      value: "4.5"
+      "timestamp": "32",
+      "columns": "A-C"
     },
     {
-      timestamp: "45",
-      columns: "A-C",
-      value: "4.8"
+      "timestamp": "45",
+      "columns": "A-C"
     }
   ]
 }

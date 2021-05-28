@@ -80,7 +80,7 @@ app.post("/detectHTML", (req, res) => {
 
     // parse json to strings
     list_of_anomalies.anomalies.forEach(function (anomaly) {
-        res.write(`Anomaly found in line ${anomaly.timestamp}! The relevant columns are ${anomaly.columns} and the value is ${anomaly.value}\n`);
+        res.write(`Anomaly found in line ${anomaly.timestamp}! The relevant columns are ${anomaly.columns}.\n`);
         // res.write('-'.repeat(18) + '\n');
         // res.write(`${anomaly.timestamp}` + ' '.repeat(6 - (anomaly.timestamp.length)) + '|' +
         //     `${anomaly.columns}` + ' '.repeat(8 - anomaly.columns.length) + '|' + '\n');
