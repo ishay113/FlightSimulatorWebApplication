@@ -5,9 +5,10 @@
 // then you can write this require. It will NOT autofill, but do it anyway.
 const api = require('./build/Release/AnomalyDetectorAPI') //the name of your .node file in Release, according to your binding.gyp
 
-function train(model_type, train_csv) {
-    // TODO: training the anomaly detector
+function trainAndPredict(model_type) {
     /**
+     * This function trains a model using train_file.csv saved in "Data/" directory, and then detects anomalies in the "test_file.csv".
+     * The result, "anomaly_detector" will be saved in the "res/" directory.
      * anomaly_detector is a json object which represents the anomaly detection system
      * For example:
      * {
@@ -16,7 +17,6 @@ function train(model_type, train_csv) {
      *     "threshold": 3.2
      * }
      */
-
     api.AnomalyDetectorFunc(model_type);
 }
 
@@ -43,5 +43,4 @@ function predict(anomaly_detector, test_csv) {
     return anomaly_detector
 }
 
-module.exports.train = train
-module.exports.predict = predict
+module.exports.trainAndPredict = trainAndPredict
