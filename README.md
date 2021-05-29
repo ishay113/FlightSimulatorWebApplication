@@ -3,25 +3,25 @@
 A web application for the, used to detect anomalies in flight data  <br/>
 Implmented using Node.js technology and dll addOn to cpp files (node-gyp).
 
-### Installing 
+## Video
+You can watch a tease of using our application in the link: 
+https://youtu.be/MWDSuNtkAMQ
+
+## Installing 
 * Download and install Node.js on your machine -https://nodejs.org/en/
 * After cloning the project please run `npm install` to install all the required dependencies.
 * Please make sure to install following packages globally: `npm install -g node-gyp` and if you're using windows also install `npm install --g --production windows-build-tools`
 
-### Run Preperation
+## Run Preperation
 * Please make sure to run the following commands from the Model directory, run in command prompt:
 * `node-gyp configure`
 * `node-gyp build`
 * To run the web app server pleaes navigate to the Controller directory inside FlightSimulatorProject and run the following command `node exampleExpressServer.js`.
 * Now the server is up and running on your local machine at localhost:8080
 
-### About the app
+## About the app
 The web app looks as follows:
 ![Untitled](https://user-images.githubusercontent.com/72696075/120071910-e639a980-c099-11eb-9868-8246c4d283f8.png)
-
-### Video
-You can watch a tease of using our application in the link: 
-https://youtu.be/MWDSuNtkAMQ
 
 ## Application Features
 There are 2 main features of our app:
