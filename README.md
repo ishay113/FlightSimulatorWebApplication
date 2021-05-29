@@ -17,11 +17,11 @@ Implmented using Node.js technology and dll addOn to cpp files (node-gyp).
 
 ### About the app
 The web app looks as follows:
-![48bc8c90-5ac9-4560-98fb-66a272c1803c](https://user-images.githubusercontent.com/72696075/120070942-9b1d9780-c095-11eb-9192-b65c6957cd16.jpg)
+![Untitled](https://user-images.githubusercontent.com/72696075/120071910-e639a980-c099-11eb-9868-8246c4d283f8.png)
 
 ### Video
 You can watch a tease of using our application in the link: 
-<insert link here>
+https://youtu.be/MWDSuNtkAMQ
 
 ## Application Features
 There are 2 main features of our app:
